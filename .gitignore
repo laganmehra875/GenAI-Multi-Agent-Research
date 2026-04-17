@@ -1,0 +1,18 @@
+# Environment variables (Sensitive)
+.env
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store

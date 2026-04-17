@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: genai-multi-agent-research
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: WEATHER_API_KEY
+        sync: false
