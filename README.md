@@ -5,7 +5,7 @@ A cinematic research agent that searches the web, tracks weather, and generates 
 ### GenAI-Multi-Agent-Research
  Available at your primary URL https:
  ```bash
-    https://ai-project-resume-checker-1.onrender.com
+    https://genai-multi-agent-research.onrender.com
    ```
 
 
