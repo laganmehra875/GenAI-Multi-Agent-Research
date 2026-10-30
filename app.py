@@ -6,9 +6,12 @@ from pydantic import BaseModel
 import uvicorn
 import os
 
+import traceback
+import httpx
+from tenacity import retry, stop_after_attempt, wait_exponential, RetryError
+
 from tools import get_weather
 from pipeline import run_research_pipeline
-from tenacity import retry, stop_after_attempt, wait_exponential
 
 app = FastAPI(title="GenAI Multi-Agent Research API")
 
@@ -46,6 +49,23 @@ def api_weather(location: str):
 def resilient_run_pipeline(topic: str):
     return run_research_pipeline(topic)
 
+def extract_error_message(e: Exception) -> str:
+    """Extract a human-readable message from nested retry and httpx errors."""
+    cause = e
+    if isinstance(e, RetryError) and e.last_attempt:
+        cause = e.last_attempt.exception() or e
+
+    if isinstance(cause, httpx.HTTPStatusError):
+        status_code = cause.response.status_code
+        try:
+            body = cause.response.json()
+            detail = body.get("message") or body.get("detail") or str(body)
+        except Exception:
+            detail = cause.response.text or "Unknown error from Mistral API"
+        return f"Mistral API error (HTTP {status_code}): {detail}"
+
+    return str(cause)
+
 @app.post("/api/research")
 def api_research(req: ResearchRequest):
     """Trigger the multi agent pipeline with the user's raw topic."""
@@ -53,7 +73,9 @@ def api_research(req: ResearchRequest):
         state = resilient_run_pipeline(req.topic)
         return {"status": "success", "report": state.get("report", ""), "feedback": state.get("feedback", "")}
     except Exception as e:
-        return {"status": "error", "message": str(e)}
+        traceback.print_exc()
+        msg = extract_error_message(e)
+        return {"status": "error", "message": msg}
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

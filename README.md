@@ -1,17 +1,8 @@
-# GenAI Multi-Agent Research System
-
-A cinematic research agent that searches the web, tracks weather, and generates deep reports.
-
-### GenAI-Multi-Agent-Research
- Available at your primary URL https:
- ```bash
-    https://genai-multi-agent-research.onrender.com
-   ```
-
-
 # 🌌 GenAI Multi-Agent Research Portal
 
 A **Cinematic, AI-powered research system** that leverages multiple specialized agents to search the web, scrape content, and generate deep analytical reports with live weather integration.
+
+**Live Deployment:** [https://genai-multi-agent-research.onrender.com](https://genai-multi-agent-research.onrender.com)
 
 Built with **FastAPI**, **LangChain**, and **Mistral AI**, featuring a premium glassmorphic UI.
 
@@ -49,7 +40,7 @@ Built with **FastAPI**, **LangChain**, and **Mistral AI**, featuring a premium g
 ### 2. Local Installation
 1. **Clone the repository**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/laganmehra875/GenAI-Multi-Agent-Research.git
    cd GenAI-Multi-Agent-Research
    ```
 2. **Setup Environment**:
@@ -78,7 +69,7 @@ Built with **FastAPI**, **LangChain**, and **Mistral AI**, featuring a premium g
 This project is optimized for **Render.com**.
 
 1. Push your code to a **GitHub** repository.
-2. Go to [Render Dashboard](https://genai-multi-agent-research.onrender.com).
+2. Go to [Render Dashboard](https://dashboard.render.com).
 3. Click **New +** -> **Blueprint**.
 4. Link your Repo. Render will automatically read `render.yaml`.
 5. Add your API keys in the **Environment** tab of your service.
